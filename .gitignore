@@ -1,0 +1,87 @@
+## ASRT
+
+*.model
+*.model.base
+[Mm]odel_speech/
+
+__pycache__
+*.wav
+*.model_yaml
+Test_Report_*
+
+dataset
+data_pinyin.txt
+
+testClient.py
+
+webapi/
+save_models/
+
+#GEN_Model
+#model
+model/*
+
+#data
+data/*
+
+# MaskRCNN
+datasets/
+logs/
+*.h5
+results/
+temp/
+test/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# VS Studio Code
+.vscode
+
+# PyCharm
+.idea/
+
+# Dropbox
+.dropbox.attr
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# dotenv
+.env
+
+# virtualenv
+.venv
+venv/
+ENV/
+
+#model
+.h5

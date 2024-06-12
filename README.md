@@ -1,4 +1,4 @@
-# DataScience
+# DataScience學習紀錄
 ## 主要內容
 - GenAI
 - Reinforcement Learning
@@ -28,8 +28,8 @@
   - RAG-Token:  
     (可使用)多個文件檢索出答案  
 
-### 2.LSTM
-實作 LSTM 並介紹 RNN
+### 2.LSTM  
+[LSTM 整理](LSTM/README.md)
 
 ### 3.Reinforcement Learning
 暫定
