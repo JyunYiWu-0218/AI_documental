@@ -17,7 +17,7 @@ Long Short-Term Memory(LSTM) 的組成:
 - 5. $o_{t}=\sigma \left ( W_{o}\cdot \left [ h_{t-1},x_{t} \right ]+b_{o}\right )$  
 - 6. $h_{t}=o_{t}*tanh(C_{t})$  
 
-:::success
+:::success  
 重點：理解 (LSTM) 數學式時，需搭配圖片並將每個式子視為單個區塊(納入相關元件)來看  
 :::  
 
