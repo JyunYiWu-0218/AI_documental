@@ -21,8 +21,8 @@ Long Short-Term Memory(LSTM) 的組成:
 #### 多層 LSTM Cell 組成  
 ![LSTM Layer](LSTM_layer.png)  
 
-## 論文探討  
-[1]: <https://arxiv.org/abs/1402.1128> "論文出處"   
+## 論文探討   
+[LSTM Paper](<https://arxiv.org/abs/1402.1128> "論文出處")  
 
 ### LSTM based RNN architectures  
 ![LSTM based](LSTM_based.png)   
@@ -76,7 +76,8 @@ $W=n_{c}\times n_{r}\times 4+n_{i}\times n_{c}\times 4+(n_{r}+n_{p})\times n_{o}
 ## 程式碼解析     
 ### LSTM Cell  
 - Tensorflow source   
-[2]: <https://github.com/keras-team/keras/blob/v3.3.3/keras/src/layers/rnn/lstm.py#L318-L669> "Tensorflow source"   
+[Tensorflow source](<https://github.com/keras-team/keras/blob/v3.3.3/keras/src/layers/rnn/lstm.py#L318-L669> "Tensorflow source")  
+
 ```python
 from keras.src import activations
 from keras.src import backend
@@ -329,9 +330,9 @@ class LSTMCell(Layer, DropoutRNNCell):
         ]
 ```  
 
-- Pytorch source  
-[3]: <https://pytorch.org/docs/stable/_modules/torch/nn/modules/rnn.html#LSTMCell> "Pytorch source"   
-[4]: <https://github.com/pytorch/pytorch/blob/main/aten/src/ATen/native/RNN.cpp> "Pytorch LSTM CPP source"   
+- Pytorch source   
+[Pytorch source](<https://pytorch.org/docs/stable/_modules/torch/nn/modules/rnn.html#LSTMCell> "Pytorch source")  
+[Pytorch LSTM CPP source](<https://github.com/pytorch/pytorch/blob/main/aten/src/ATen/native/RNN.cpp> "Pytorch LSTM CPP source")  
 ```python
 import math
 import warnings
