@@ -9,27 +9,27 @@ Long Short-Term Memory(LSTM) 的組成:
 ## 架構  
 ### LSTM Cell  
 #### 單一狀態的 LSTM    
-![LSTM Cell](LSTM_Cell.png)  
-- 1.$f_{t}=\sigma \left ( W_{f}\cdot \left [ h_{t-1},x_{t} \right ]+b_{f}\right )$  
-- 2.$i_{t}=\sigma \left ( W_{i}\cdot \left [ h_{t-1},x_{t} \right ]+b_{i}\right )$  
-- 3.$\widetilde{C_{t}}=tanh\left ( W_{C}\cdot \left [ h_{t-1},x_{t} \right ]+b_{C} \right ) $  
-- 4.$C_{t}=f_{t}*C_{t-1}+i_{t}*\widetilde{C_{t}}$  
+![LSTM Cell](LSTM_Cell.png)   
+- 1.$f_{t}=\sigma \left ( W_{f}\cdot \left [ h_{t-1},x_{t} \right ]+b_{f}\right )$   
+- 2.$i_{t}=\sigma \left ( W_{i}\cdot \left [ h_{t-1},x_{t} \right ]+b_{i}\right )$   
+- 3.$\widetilde{C_{t}}=tanh\left ( W_{C}\cdot \left [ h_{t-1},x_{t} \right ]+b_{C} \right ) $   
+- 4.$C_{t}=f_{t}*C_{t-1}+i_{t}*\widetilde{C_{t}}$   
 - 5.$o_{t}=\sigma \left ( W_{o}\cdot \left [ h_{t-1},x_{t} \right ]+b_{o}\right )$  
-- 6.$h_{t}=o_{t}*tanh(C_{t})$  
+- 6.$h_{t}=o_{t}*tanh(C_{t})$   
 
 ### LSTM  
 #### 多層 LSTM Cell 組成  
-![LSTM Layer](LSTM_layer.png)  
+![LSTM Layer](LSTM_layer.png)   
 
 ## 論文探討   
-[LSTM Paper](<https://arxiv.org/abs/1402.1128> "論文出處")  
+[LSTM Paper](<https://arxiv.org/abs/1402.1128> "論文出處")   
 
 ### LSTM based RNN architectures  
-![LSTM based](LSTM_based.png)   
-- $i_{t}=\sigma \left ( W_{ix}x_{t}+W_{ir}r_{t-1}+W_{ic}c_{t-1}+b_{i}\right )$  
-- $f_{t}=\sigma \left ( W_{fx}x_{t}+W_{rf}r_{t-1}+W_{cf}c_{t-1}+b_{f}\right )$  
-- $c_{t}=f_{t} \odot c_{t-1} + i_{t} \odot g \left ( W_{cx}x_{t}+W_{cr}r_{t-1}+b_{c}\right )$   
-- $o_{t}=\sigma \left ( W_{ox}x_{t}+W_{or}r_{t-1}+W_{oc}c_{t}+b_{o}\right )$   
+![LSTM based](LSTM_based.png)    
+- $i_{t}=\sigma \left ( W_{ix}x_{t}+W_{ir}r_{t-1}+W_{ic}c_{t-1}+b_{i}\right )$   
+- $f_{t}=\sigma \left ( W_{fx}x_{t}+W_{rf}r_{t-1}+W_{cf}c_{t-1}+b_{f}\right )$   
+- $c_{t}=f_{t} \odot c_{t-1} + i_{t} \odot g \left ( W_{cx}x_{t}+W_{cr}r_{t-1}+b_{c}\right )$    
+- $o_{t}=\sigma \left ( W_{ox}x_{t}+W_{or}r_{t-1}+W_{oc}c_{t}+b_{o}\right )$    
 - $m_{t}=o_{t} \odot h(c_{t})$   
 - $r_{t}=W_{rm}m_{t}$    
 - $p_{t}=W_{pm}m_{t}$  
@@ -38,7 +38,7 @@ Long Short-Term Memory(LSTM) 的組成:
 ### 流程分析  
 #### 權重(忽略偏差量)   
 - The total number of parameters W(標準 LSTM network)  
-$W=n_{c}\times n_{c}\times 4+n_{i}\times n_{c}\times 4+n_{c}\times n_{o}+n_{c}\times 3$   
+$W=n_{c}\times n_{c}\times 4+n_{i}\times n_{c}\times 4+n_{c}\times n_{o}+n_{c}\times 3$    
     ```
     nc: the number of memory cells(memory blocks)  
     ni: the number of input units  
@@ -49,13 +49,13 @@ $W=n_{c}\times n_{c}\times 4+n_{i}\times n_{c}\times 4+n_{c}\times n_{o}+n_{c}\t
         2.輸入的信息量較少時，會使 LSTM 訓練成本與信息量不成正比(耗費大量的儲存單元)  
 ##### 解決辦法  
 - 架構一：單元輸出連到遞歸預測層(用於預測輸出單元)  
-$W=n_{c}\times n_{r}\times 4+n_{i}\times n_{c}\times 4+n_{r}\times n_{o}+n_{c}\times n_{r}+n_{c}\times 3$
+$W=n_{c}\times n_{r}\times 4+n_{i}\times n_{c}\times 4+n_{r}\times n_{o}+n_{c}\times n_{r}+n_{c}\times 3$  
     ```
     nr: 遞歸預測層的單元數  
     ```  
 
 - 架構二：基於架構一，額外增加非遞歸預測層(不增加參數的情況下增加預測層的單元數)   
-$W=n_{c}\times n_{r}\times 4+n_{i}\times n_{c}\times 4+(n_{r}+n_{p})\times n_{o}+n_{c}\times (n_{r}+n_{p})+n_{c}\times 3$  
+$W=n_{c}\times n_{r}\times 4+n_{i}\times n_{c}\times 4+(n_{r}+n_{p})\times n_{o}+n_{c}\times (n_{r}+n_{p})+n_{c}\times 3$   
     ```
     np: 非遞歸預測層的單元數
     ```  
