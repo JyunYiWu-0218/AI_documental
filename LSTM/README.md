@@ -17,10 +17,7 @@ Long Short-Term Memory(LSTM) 的組成:
 - 5. $o_{t}=\sigma \left ( W_{o}\cdot \left [ h_{t-1},x_{t} \right ]+b_{o}\right )$  
 - 6. $h_{t}=o_{t}*tanh(C_{t})$  
 
-:::success  
-重點：理解 (LSTM) 數學式時，需搭配圖片並將每個式子視為單個區塊(納入相關元件)來看  
-:::  
-
+<font color="red">重點：理解 (LSTM) 數學式時，需搭配圖片並將每個式子視為單個區塊(納入相關元件)來看</font>   
 
 ### LSTM  
 #### 多層 LSTM Cell 組成  
@@ -29,7 +26,8 @@ Long Short-Term Memory(LSTM) 的組成:
 ## 論文探討   
 [LSTM Paper](<https://arxiv.org/abs/1402.1128> "論文出處")   
 
-### LSTM based RNN architectures  
+### LSTM based RNN architectures    
+<font color="red">下圖為了簡潔表示， Memory blocks 只顯示一個</font> 
 ![LSTM based](LSTM_based.png)    
 - $i_{t}=\sigma \left ( W_{ix}x_{t}+W_{ir}r_{t-1}+W_{ic}c_{t-1}+b_{i}\right )$   
 - $f_{t}=\sigma \left ( W_{fx}x_{t}+W_{rf}r_{t-1}+W_{cf}c_{t-1}+b_{f}\right )$   
@@ -50,30 +48,32 @@ $W=n_{c}\times n_{c}\times 4+n_{i}\times n_{c}\times 4+n_{c}\times n_{o}+n_{c}\t
     no: the number of output units
     ```   
     - 問題  
-        1.使用隨機梯度下降法優化 LSTM 模型，會導致每個時間狀態下的learning computational complexity(學習運算複雜度)為 O(W)  
-        2.輸入的信息量較少時，會使 LSTM 訓練成本與信息量不成正比(耗費大量的儲存單元)  
+        1.==使用隨機梯度下降法優化 LSTM 模型，會導致每個時間狀態下的learning computational complexity(學習運算複雜度)為 O(W)==   
+        2.==輸入的信息量較少時，會使 LSTM 訓練成本與信息量不成正比(耗費大量的儲存單元)==  
 ##### 解決辦法  
-- 架構一：單元輸出連到遞歸預測層(用於預測輸出單元)  
+- 架構一：  
+<font color="blue">單元輸出連到遞歸預測層(用於預測輸出單元)</font>  
 $W=n_{c}\times n_{r}\times 4+n_{i}\times n_{c}\times 4+n_{r}\times n_{o}+n_{c}\times n_{r}+n_{c}\times 3$  
     ```
     nr: 遞歸預測層的單元數  
+    r: recurrent unit activations  
     ```  
 
-- 架構二：基於架構一，額外增加非遞歸預測層(不增加參數的情況下增加預測層的單元數)   
+- 架構二：  
+<font color="green">基於架構一，額外增加非遞歸預測層(不增加參數的情況下增加預測層的單元數)</font>   
 $W=n_{c}\times n_{r}\times 4+n_{i}\times n_{c}\times 4+(n_{r}+n_{p})\times n_{o}+n_{c}\times (n_{r}+n_{p})+n_{c}\times 3$   
     ```
-    np: 非遞歸預測層的單元數
+    np: 非遞歸預測層的單元數  
+    p: optional non-recurrent unit activations
     ```  
 
 ### 參數  
-- W: 權重矩陣(Wix: weights from the input gate to the input)  
-- b: bias(偏差) vectors (bi: the input gate bias vector)  
+- W: <font color="red">權重矩陣</font>(Wix: weights from the input gate to the input)  
+- b: <font color="red">bias(偏差)</font> vectors (bi: the input gate bias vector)  
 - $\sigma $: logistic sigmoid function  
 - i,o,f: input gate, forget gate, output gate  
 - c: cell activation vectors  
-- m: cell output activation vector  
-- r: recurrent unit activations  
-- p: optional non-recurrent unit activations  
+- m: cell output activation vector   
 - g,h: cell input and cell output activation functions  
 
 ![activation functions](activation_functions.png)  
