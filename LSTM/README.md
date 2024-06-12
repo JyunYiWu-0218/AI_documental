@@ -13,7 +13,7 @@ Long Short-Term Memory(LSTM) 的組成:
 - 1. $f_{t}=\sigma \left ( W_{f}\cdot \left [ h_{t-1},x_{t} \right ]+b_{f}\right )$  
 - 2. $i_{t}=\sigma \left ( W_{i}\cdot \left [ h_{t-1},x_{t} \right ]+b_{i}\right )$  
 - 3. $\widetilde{C_{t}}=tanh\left ( W_{C}\cdot \left [ h_{t-1},x_{t} \right ]+b_{C} \right ) $  
-- 4. $C_{t}=f_{t}*C_{t-1}+i_{t}*\widetilde{C_{t}}$  
+- 4. $C_{t}=f_{t}\ast C_{t-1} + i_{t}\ast \widetilde{C_{t}}$  
 - 5. $o_{t}=\sigma \left ( W_{o}\cdot \left [ h_{t-1},x_{t} \right ]+b_{o}\right )$  
 - 6. $h_{t}=o_{t}*tanh(C_{t})$  
 
