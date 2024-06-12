@@ -27,7 +27,9 @@ Long Short-Term Memory(LSTM) 的組成:
 [LSTM Paper](<https://arxiv.org/abs/1402.1128> "論文出處")   
 
 ### LSTM based RNN architectures    
-<font color="red">下圖為了簡潔表示， Memory blocks 只顯示一個</font> 
+<font color="red">下圖為了簡潔表示， Memory blocks 只顯示一個</font>  
+  
+   
 ![LSTM based](LSTM_based.png)    
 - $i_{t}=\sigma \left ( W_{ix}x_{t}+W_{ir}r_{t-1}+W_{ic}c_{t-1}+b_{i}\right )$   
 - $f_{t}=\sigma \left ( W_{fx}x_{t}+W_{rf}r_{t-1}+W_{cf}c_{t-1}+b_{f}\right )$   
