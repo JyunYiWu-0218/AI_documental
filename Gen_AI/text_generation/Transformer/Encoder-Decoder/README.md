@@ -93,7 +93,7 @@ cross-attention
     $t_{c}$ = $t_{p}$  
 
 - $\theta$:  
-    $\theta = \bigcup \lbrace1 \theta _{src},\theta _{tgt},\theta _{enc},\theta _{dec},\theta _{xattn} \rbrace$  
+    $\theta = \bigcup \lbrace \theta _{src},\theta _{tgt},\theta _{enc},\theta _{dec},\theta _{xattn} \rbrace$  
     - $\theta _{src}$(來源):  
     includes  
     source-language token embeddings,  
