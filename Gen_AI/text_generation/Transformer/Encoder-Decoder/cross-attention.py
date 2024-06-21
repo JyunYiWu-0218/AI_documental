@@ -31,13 +31,13 @@ class Cross_Attention(nn.Module):
         input2_V=input_2.matmul(self.Weight_V)
         
         #根號運算
-        sqrt_k = math.sqrt(self.dim_KorQ)
+        #sqrt_k = math.sqrt(self.dim_KorQ)
 
-        #Attention(Q,K,V)
-        W=torch.softmax(input1_Q.matmul(input2_K.T)/sqrt_k, dim=-1)
+        #Cross_Attention
+        A=torch.softmax(input1_Q.matmul(input2_K.T), dim=-1)
         
-        Attention=W.matmul(input2_V)
-        return Attention
+        Cross_Attention=A.matmul(input2_V)
+        return Cross_Attention
 
 # 前處理輸入 (ids and token)
 def Embedding_input(sentence:str, temp_str:str):

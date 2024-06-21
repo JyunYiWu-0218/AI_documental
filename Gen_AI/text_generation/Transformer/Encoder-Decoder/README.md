@@ -132,7 +132,50 @@ Pytorch 2.3.1
 ```  
 #### 流程圖  
 ![Cross-attention in Transformer](process_transformer.png)  
-![Cross-attention](process.png)   
+![Cross-attention](process.png)  
+
+#### 參數解釋(個人看法)  
+- x1(中文), x2(英文):  
+    視為輸入，在這個範例中以輸入文字序列為主(也可運用在不同情況的輸入上);分為中文及英文輸入，因為我想觀察英文和中文經過 embedding 的差異性及 cross-attention 處理不同語言時的輸出。      
+- dim_input, dim_KorQ, dim_V:  
+    - dim_input:  
+    輸入文字序列後，經由 embedding 轉換為 Trnsor([...])  
+    - dim_KorQ:  
+    Cross-Attention 中(dim_K=dim_Q)，所以將2者寫再一起，可調整參數，調整(Key, Query, input)維度  
+    - dim_V:  
+    此參數為 (Value) 的維度設定  
+- $W_{q}$, $W_{k}$, $W_{v}$ :  
+    - $W_{q}$ :  
+    由 input, dim_Q 所組成的矩陣,為 query 的權重  
+    大小為 (dum_imput * dim_Q) 的矩陣
+
+    - $W_{k}$ :  
+    由 input, dim_K 所組成的矩陣,為 key 的權重  
+    大小為 (dum_imput * dim_K) 的矩陣
+
+    - $W_{v}$ :  
+    由 input, dim_V 所組成的矩陣,為 value 的權重  
+    大小為 (dum_imput * dim_V) 的矩陣  
+
+- Q, K, V (上圖紫色區塊):  
+    - Q :  
+    要查詢的信息，以矩陣的形式儲存  
+    公式: Q = $(dim_{input} W_{q})_{ij}$ (矩陣相乘)  
+
+    - K :  
+    鍵的矩陣(可理解為查詢所得到的索引值)  
+    公式: K = $(dim_{input} W_{k})_{ij}$ (矩陣相乘)  
+
+    - V :  
+    值的矩陣(可理解為查詢所得到的內容)  
+    公式: V = $(dim_{input} W_{v})_{ij}$ (矩陣相乘)  
+- Cross-Attention 與 self-Attention 公式的差異:  
+    以公式上來看，兩者相差了 $1 / \sqrt{d_{k}}$ ，  
+    從架構上來說 ， Cross-Attention 會缺少 $1 / \sqrt{d_{k}}$ ，  
+    是因為:  
+    Cross-Attention 是雙序列輸入；  
+    Self-Attention 是單序列輸入。  
+    
 
 #### 程式碼  
 [Cross-attention](cross-attention.py)  
@@ -160,15 +203,15 @@ class Cross_Attention(nn.Module):
         input2_V=input_2.matmul(self.Weight_V)
         
         #根號運算
-        sqrt_k = math.sqrt(self.dim_KorQ)
+        #sqrt_k = math.sqrt(self.dim_KorQ)
 
-        #Attention(Q,K,V)
-        W=torch.softmax(input1_Q.matmul(input2_K.T)/sqrt_k, dim=-1)
+        #Cross-Attention(Q,K,V)
+        A=torch.softmax(input1_Q.matmul(input2_K.T), dim=-1)
         
-        Attention=W.matmul(input2_V)
-        return Attention
+        Cross-Attention=A.matmul(input2_V)
+        return Cross-Attention
 ```  
-$$Attention(Q,K,V)=softmax(\frac{QK^{T}}{\sqrt{d_{k}}})V$$  
+$$Cross-Attention(Q,K,V)=softmax(QK^{T})V$$  
 
 - Embedding  
 ```python
@@ -409,4 +452,15 @@ context_vectors=cross_attention(input1, input2)
 print(context_vectors)
 print(context_vectors.shape)
 ```
-
+輸出:  
+```bash
+tensor([[ 54.6506,  45.3390,  58.2769,  ...,  45.6366,  44.4328,  42.9971],
+        [ 54.6506,  45.3390,  58.2769,  ...,  45.6366,  44.4328,  42.9971],
+        [-36.9217, -46.2097, -34.7395,  ..., -35.7058, -45.1091, -54.8270],
+        ...,
+        [ 54.6506,  45.3390,  58.2769,  ...,  45.6366,  44.4328,  42.9971],
+        [-37.1539, -46.0859, -35.1189,  ..., -35.9307, -44.8170, -54.7477],
+        [-36.8671, -46.2387, -34.6503,  ..., -35.6529, -45.1777, -54.8457]],
+       grad_fn=<MmBackward0>)
+torch.Size([118, 48])
+```
